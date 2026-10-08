@@ -4,7 +4,7 @@ services:
     runtime: python
     rootDir: .
     buildCommand: "bash build.sh"
-    startCommand: "python manage.py migrate && python create_superuser.py && gunicorn mysite.wsgi:application"
+    startCommand: "python manage.py migrate && python create_superuser.py && python seed_data.py && gunicorn mysite.wsgi:application"
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0
