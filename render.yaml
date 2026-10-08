@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: cineverse-movie-portal
+    runtime: python
+    rootDir: .
+    buildCommand: "bash build.sh"
+    startCommand: "python manage.py migrate && python create_superuser.py && gunicorn mysite.wsgi:application"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: WEB_CONCURRENCY
+        value: 2
+      - key: SECRET_KEY
+        generateValue: true
+      - key: RENDER
+        value: "True"

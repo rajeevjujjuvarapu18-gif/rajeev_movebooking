@@ -1,0 +1,953 @@
+/* ============================================================
+   CineVerse — Cinema Portal Styles
+   Premium dark-theme design with glassmorphism & micro-animations
+   ============================================================ */
+
+/* ---------- CSS Custom Properties ---------- */
+:root {
+    --bg-primary: #0a0a1a;
+    --bg-secondary: #12122a;
+    --bg-tertiary: #1a1a3e;
+    --glass-bg: rgba(255, 255, 255, 0.04);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-bg-hover: rgba(255, 255, 255, 0.08);
+    --text-primary: #e8e8f0;
+    --text-secondary: #a0a0c0;
+    --accent-1: #7c3aed;
+    --accent-2: #a855f7;
+    --accent-3: #c084fc;
+    --gradient-primary: linear-gradient(135deg, #7c3aed, #a855f7, #ec4899);
+    --gradient-secondary: linear-gradient(135deg, #06b6d4, #3b82f6, #7c3aed);
+    --gradient-gold: linear-gradient(135deg, #f59e0b, #ef4444);
+    --seat-available: #1e293b;
+    --seat-available-border: #334155;
+    --seat-selected: #7c3aed;
+    --seat-selected-glow: rgba(124, 58, 237, 0.4);
+    --seat-booked: #374151;
+    --seat-booked-text: #6b7280;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-xl: 28px;
+    --shadow-glow: 0 0 30px rgba(124, 58, 237, 0.2);
+    --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.3);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-display: 'Outfit', 'Inter', sans-serif;
+}
+
+/* ---------- Reset & Base ---------- */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-primary);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(ellipse at 20% 50%, rgba(124, 58, 237, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(168, 85, 247, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 80%, rgba(236, 72, 153, 0.04) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+a {
+    color: var(--accent-2);
+    transition: var(--transition-smooth);
+}
+
+a:hover {
+    color: var(--accent-3);
+}
+
+::selection {
+    background: var(--accent-1);
+    color: white;
+}
+
+/* ---------- Glass Navigation ---------- */
+.glass-nav {
+    background: rgba(10, 10, 26, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 0.8rem 0;
+    z-index: 1000;
+}
+
+.brand-logo {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 800;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.5px;
+}
+
+.brand-logo i {
+    -webkit-text-fill-color: initial;
+    color: var(--accent-2);
+}
+
+.glass-nav .nav-link {
+    color: var(--text-secondary);
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    transition: var(--transition-smooth);
+}
+
+.glass-nav .nav-link:hover {
+    color: var(--text-primary);
+    background: var(--glass-bg-hover);
+}
+
+/* ---------- Hero Section ---------- */
+.hero-section {
+    position: relative;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding-top: 80px;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse at center, rgba(124, 58, 237, 0.15) 0%, transparent 60%),
+        linear-gradient(180deg, transparent 60%, var(--bg-primary) 100%);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.min-vh-50 {
+    min-height: 50vh;
+}
+
+.hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    letter-spacing: -2px;
+}
+
+.gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    max-width: 500px;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+}
+
+/* Animated particles */
+.hero-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ---------- Buttons ---------- */
+.btn-glow {
+    background: var(--gradient-primary);
+    border: none;
+    color: white;
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-glow::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+    opacity: 0;
+    transition: var(--transition-smooth);
+}
+
+.btn-glow:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow);
+    color: white;
+}
+
+.btn-glow:hover::before {
+    opacity: 1;
+}
+
+.btn-glow:active {
+    transform: translateY(0);
+}
+
+.btn-glow:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-pill {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--text-secondary);
+    font-weight: 500;
+    border-radius: 50px;
+    padding: 0.5rem 1.25rem;
+    transition: var(--transition-smooth);
+}
+
+.btn-pill:hover {
+    background: var(--glass-bg-hover);
+    color: var(--text-primary);
+    border-color: var(--accent-1);
+}
+
+.btn-pill.active {
+    background: var(--gradient-primary);
+    border-color: transparent;
+    color: white;
+}
+
+/* ---------- Section Titles ---------- */
+.section-title {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+/* ---------- Glass Cards ---------- */
+.glass-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: var(--transition-smooth);
+}
+
+.glass-card:hover {
+    border-color: rgba(124, 58, 237, 0.2);
+}
+
+.glass-alert {
+    background: var(--glass-bg) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-radius: var(--radius-md) !important;
+    color: var(--text-primary) !important;
+}
+
+/* ---------- Movie Cards ---------- */
+.movie-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: var(--transition-smooth);
+    cursor: pointer;
+}
+
+.movie-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-card), var(--shadow-glow);
+    border-color: rgba(124, 58, 237, 0.3);
+}
+
+.movie-poster-wrapper {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 2/3;
+}
+
+.movie-poster {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.movie-card:hover .movie-poster {
+    transform: scale(1.05);
+}
+
+.movie-poster-placeholder {
+    width: 100%;
+    height: 100%;
+    background: var(--bg-tertiary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: var(--text-secondary);
+}
+
+.movie-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.genre-badge {
+    background: var(--gradient-primary);
+    border: none;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0.3rem 0.7rem;
+    border-radius: 50px;
+}
+
+.movie-rating-badge {
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.movie-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+}
+
+.movie-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.card-body {
+    padding: 1rem;
+}
+
+/* ---------- Movie Detail ---------- */
+.movie-detail-hero {
+    position: relative;
+    min-height: 60vh;
+    padding-top: 80px;
+    overflow: hidden;
+}
+
+.movie-backdrop {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    filter: blur(30px) brightness(0.3);
+    transform: scale(1.2);
+}
+
+.movie-backdrop-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg,
+        rgba(10, 10, 26, 0.6) 0%,
+        rgba(10, 10, 26, 0.85) 60%,
+        var(--bg-primary) 100%);
+}
+
+.movie-detail-poster img {
+    max-width: 250px;
+    border: 2px solid var(--glass-border);
+}
+
+.movie-poster-placeholder-lg {
+    width: 250px;
+    height: 375px;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    color: var(--text-secondary);
+    border: 2px solid var(--glass-border);
+}
+
+.genre-badge-lg {
+    background: var(--gradient-primary);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.5rem 1.2rem;
+    border-radius: 50px;
+}
+
+.movie-detail-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900;
+    letter-spacing: -1px;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+}
+
+.movie-detail-meta {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+.movie-description {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    max-width: 600px;
+}
+
+/* ---------- Showtime Cards ---------- */
+.showtime-card {
+    text-align: center;
+}
+
+.showtime-date {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.showtime-time {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+}
+
+.showtime-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.showtime-screen {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.showtime-price {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ---------- Seat Grid ---------- */
+.seat-grid-card {
+    padding: 2rem;
+}
+
+.screen-indicator {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.screen-curve {
+    width: 70%;
+    height: 6px;
+    margin: 0 auto 0.75rem;
+    background: var(--gradient-secondary);
+    border-radius: 0 0 50% 50%;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+}
+
+.screen-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+}
+
+.seat-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.seat-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.seat-row-label {
+    width: 28px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+.seat {
+    width: 44px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    border: 2px solid var(--seat-available-border);
+    background: var(--seat-available);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    user-select: none;
+}
+
+.seat:hover:not(.booked) {
+    border-color: var(--accent-2);
+    background: rgba(124, 58, 237, 0.15);
+    color: var(--text-primary);
+    transform: scale(1.1);
+}
+
+.seat.selected {
+    background: var(--seat-selected);
+    border-color: var(--accent-2);
+    color: white;
+    box-shadow: 0 0 15px var(--seat-selected-glow);
+    transform: scale(1.05);
+}
+
+.seat.booked {
+    background: var(--seat-booked);
+    border-color: transparent;
+    color: var(--seat-booked-text);
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.seat.booked::after {
+    content: '×';
+    position: absolute;
+    font-size: 1.2rem;
+    color: var(--seat-booked-text);
+}
+
+/* Seat Legend */
+.seat-legend {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--glass-border);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.seat-sample {
+    width: 24px;
+    height: 22px;
+    border-radius: 4px;
+    border: 2px solid;
+}
+
+.seat-sample.available {
+    background: var(--seat-available);
+    border-color: var(--seat-available-border);
+}
+
+.seat-sample.selected {
+    background: var(--seat-selected);
+    border-color: var(--accent-2);
+    box-shadow: 0 0 8px var(--seat-selected-glow);
+}
+
+.seat-sample.booked {
+    background: var(--seat-booked);
+    border-color: transparent;
+    opacity: 0.5;
+}
+
+/* ---------- Booking Form & Summary ---------- */
+.booking-form-card {
+    position: sticky;
+    top: 100px;
+}
+
+.booking-summary {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4rem 0;
+    font-size: 0.9rem;
+}
+
+.total-row {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.booking-showtime-info {
+    font-size: 0.9rem;
+}
+
+/* ---------- Review Section ---------- */
+.review-section {
+    background: linear-gradient(180deg, transparent, rgba(124, 58, 237, 0.03));
+}
+
+.review-form-card {
+    position: sticky;
+    top: 100px;
+}
+
+/* Star Rating Input */
+.star-rating-input {
+    display: flex;
+    gap: 8px;
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+
+.star-input {
+    color: var(--text-secondary);
+    transition: var(--transition-smooth);
+}
+
+.star-input:hover,
+.star-input.active {
+    color: #f59e0b;
+    transform: scale(1.15);
+}
+
+.star-input.hover-preview {
+    color: #fbbf24;
+}
+
+/* Reviews List */
+.review-card {
+    animation: fadeInUp 0.5s ease;
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 0.75rem;
+}
+
+.reviewer-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+    color: white;
+    flex-shrink: 0;
+}
+
+.reviewer-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.review-stars {
+    font-size: 0.85rem;
+}
+
+.review-comment {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* ---------- Booking Confirmation ---------- */
+.confirmation-card {
+    padding: 3rem 2rem;
+}
+
+.success-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.success-circle.animate {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.confirmation-title {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+.ticket-card {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    text-align: left;
+    border: 1px solid var(--glass-border);
+}
+
+.ticket-header {
+    background: var(--gradient-primary);
+    padding: 1rem 1.5rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.ticket-body {
+    padding: 1.25rem 1.5rem;
+}
+
+.ticket-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.4rem 0;
+    font-size: 0.9rem;
+}
+
+.ticket-label {
+    color: var(--text-secondary);
+}
+
+.ticket-value {
+    color: var(--text-primary);
+}
+
+.ticket-row.total {
+    font-size: 1.1rem;
+}
+
+/* ---------- Footer ---------- */
+.footer-section {
+    padding: 3rem 0;
+    border-top: 1px solid var(--glass-border);
+    margin-top: 2rem;
+}
+
+.footer-brand {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 800;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ---------- Main Content ---------- */
+.main-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* ---------- Form Controls (Dark Theme) ---------- */
+.form-control {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    padding: 0.65rem 1rem;
+    transition: var(--transition-smooth);
+}
+
+.form-control:focus {
+    background: rgba(0, 0, 0, 0.4);
+    border-color: var(--accent-2);
+    box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.15);
+    color: var(--text-primary);
+}
+
+.form-control::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.6;
+}
+
+.form-label {
+    font-weight: 500;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.4rem;
+}
+
+/* ---------- Animations ---------- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.movie-card-wrapper {
+    animation: fadeInUp 0.6s ease backwards;
+}
+
+.movie-card-wrapper:nth-child(1) { animation-delay: 0.05s; }
+.movie-card-wrapper:nth-child(2) { animation-delay: 0.1s; }
+.movie-card-wrapper:nth-child(3) { animation-delay: 0.15s; }
+.movie-card-wrapper:nth-child(4) { animation-delay: 0.2s; }
+.movie-card-wrapper:nth-child(5) { animation-delay: 0.25s; }
+.movie-card-wrapper:nth-child(6) { animation-delay: 0.3s; }
+.movie-card-wrapper:nth-child(7) { animation-delay: 0.35s; }
+.movie-card-wrapper:nth-child(8) { animation-delay: 0.4s; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .movie-detail-title {
+        font-size: 1.8rem;
+    }
+
+    .seat {
+        width: 36px;
+        height: 32px;
+        font-size: 0.55rem;
+    }
+
+    .seat-row {
+        gap: 5px;
+    }
+
+    .seat-row-label {
+        width: 22px;
+        font-size: 0.7rem;
+    }
+
+    .seat-legend {
+        gap: 1rem;
+    }
+
+    .booking-form-card,
+    .review-form-card {
+        position: static;
+    }
+
+    .booking-showtime-info {
+        font-size: 0.8rem;
+    }
+
+    .booking-showtime-info span {
+        display: block;
+        margin-bottom: 0.3rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .seat {
+        width: 30px;
+        height: 28px;
+        font-size: 0.5rem;
+        border-radius: 4px;
+    }
+
+    .seat-row {
+        gap: 3px;
+    }
+}
+
+/* ---------- Scrollbar ---------- */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--bg-tertiary);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-1);
+}

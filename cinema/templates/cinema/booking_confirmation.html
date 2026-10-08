@@ -1,0 +1,82 @@
+{% extends "cinema/base.html" %}
+{% load static %}
+
+{% block title %}Booking Confirmed - CineVerse{% endblock %}
+
+{% block content %}
+<section class="py-5 mt-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="glass-card confirmation-card text-center">
+                    <!-- Success Animation -->
+                    <div class="confirmation-icon mb-4">
+                        <div class="success-circle">
+                            <i class="bi bi-check-lg"></i>
+                        </div>
+                    </div>
+
+                    <h1 class="confirmation-title gradient-text mb-3">Booking Confirmed!</h1>
+                    <p class="text-muted mb-4">Your tickets have been booked successfully.</p>
+
+                    <!-- Ticket Details -->
+                    <div class="ticket-card">
+                        <div class="ticket-header">
+                            <i class="bi bi-film me-2"></i>{{ movie.title }}
+                        </div>
+                        <div class="ticket-body">
+                            <div class="ticket-row">
+                                <span class="ticket-label"><i class="bi bi-calendar3 me-2"></i>Date</span>
+                                <span class="ticket-value">{{ showtime.show_date|date:"M d, Y" }}</span>
+                            </div>
+                            <div class="ticket-row">
+                                <span class="ticket-label"><i class="bi bi-clock me-2"></i>Time</span>
+                                <span class="ticket-value">{{ showtime.show_time|time:"g:i A" }}</span>
+                            </div>
+                            <div class="ticket-row">
+                                <span class="ticket-label"><i class="bi bi-display me-2"></i>Screen</span>
+                                <span class="ticket-value">{{ showtime.screen_number }}</span>
+                            </div>
+                            <div class="ticket-row">
+                                <span class="ticket-label"><i class="bi bi-person me-2"></i>Name</span>
+                                <span class="ticket-value">{{ booking.customer_name }}</span>
+                            </div>
+                            <div class="ticket-row">
+                                <span class="ticket-label"><i class="bi bi-envelope me-2"></i>Email</span>
+                                <span class="ticket-value">{{ booking.customer_email }}</span>
+                            </div>
+                            <div class="ticket-row">
+                                <span class="ticket-label"><i class="bi bi-grid-3x3 me-2"></i>Seats</span>
+                                <span class="ticket-value fw-bold">{{ booking.selected_seats }}</span>
+                            </div>
+                            <hr class="my-3 border-secondary">
+                            <div class="ticket-row total">
+                                <span class="ticket-label"><i class="bi bi-wallet2 me-2"></i>Total Paid</span>
+                                <span class="ticket-value gradient-text fw-bold">₹{{ booking.total_paid }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <a href="{% url 'cinema:movie_list' %}" class="btn btn-glow px-5 py-3" id="browse-more-btn">
+                            <i class="bi bi-grid-3x3-gap-fill me-2"></i>Browse More Movies
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Confirmation animation
+    document.addEventListener('DOMContentLoaded', () => {
+        const circle = document.querySelector('.success-circle');
+        if (circle) {
+            setTimeout(() => circle.classList.add('animate'), 300);
+        }
+    });
+</script>
+{% endblock %}

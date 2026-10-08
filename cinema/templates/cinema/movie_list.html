@@ -1,0 +1,103 @@
+{% extends "cinema/base.html" %}
+{% load static %}
+
+{% block title %}CineVerse - Now Showing{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+        <div class="row align-items-center min-vh-50">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="hero-title">
+                    <span class="gradient-text">Experience Cinema</span>
+                    <br>Like Never Before
+                </h1>
+                <p class="hero-subtitle">Book your seats, discover new releases, and share your reviews with the community.</p>
+                <a href="#movies" class="btn btn-glow btn-lg px-5 py-3">
+                    <i class="bi bi-play-circle-fill me-2"></i> Browse Movies
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="hero-particles" id="hero-particles"></div>
+</section>
+
+<!-- Genre Filter -->
+<section id="movies" class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">
+                <i class="bi bi-stars me-2"></i>Now Showing
+            </h2>
+            <p class="text-muted">Select a genre to filter or browse all our current movies</p>
+        </div>
+
+        <!-- Genre Filter Pills -->
+        <div class="d-flex flex-wrap justify-content-center gap-2 mb-5" id="genre-filter">
+            <a href="{% url 'cinema:movie_list' %}"
+               class="btn btn-pill {% if not selected_genre %}active{% endif %}">
+                <i class="bi bi-grid-fill me-1"></i> All
+            </a>
+            {% for genre in genres %}
+            <a href="{% url 'cinema:movie_list' %}?genre={{ genre }}"
+               class="btn btn-pill {% if selected_genre == genre %}active{% endif %}">
+                {{ genre }}
+            </a>
+            {% endfor %}
+        </div>
+
+        <!-- Movie Grid -->
+        <div class="row g-4" id="movie-grid">
+            {% for movie in movies %}
+            <div class="col-sm-6 col-md-4 col-lg-3 movie-card-wrapper">
+                <a href="{% url 'cinema:movie_detail' pk=movie.pk %}" class="text-decoration-none">
+                    <div class="card movie-card h-100">
+                        <div class="movie-poster-wrapper">
+                            {% if movie.poster_url %}
+                            <img src="{{ movie.poster_url }}" class="card-img-top movie-poster" alt="{{ movie.title }} poster">
+                            {% else %}
+                            <div class="movie-poster-placeholder">
+                                <i class="bi bi-film"></i>
+                            </div>
+                            {% endif %}
+                            <div class="movie-overlay">
+                                <span class="badge genre-badge">{{ movie.genre }}</span>
+                                <div class="movie-rating-badge">
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                    {% if movie.avg_rating %}
+                                        {{ movie.avg_rating|floatformat:1 }}
+                                    {% else %}
+                                        N/A
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title movie-title">{{ movie.title }}</h5>
+                            <div class="movie-meta">
+                                <span><i class="bi bi-clock me-1"></i>{{ movie.duration }} min</span>
+                                <span><i class="bi bi-chat-dots me-1"></i>{{ movie.review_count }} reviews</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center py-5">
+                <div class="empty-state">
+                    <i class="bi bi-film display-1 text-muted"></i>
+                    <h3 class="mt-3 text-muted">No movies found</h3>
+                    <p class="text-muted">Check back later or try a different genre filter.</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/main.js' %}"></script>
+{% endblock %}
