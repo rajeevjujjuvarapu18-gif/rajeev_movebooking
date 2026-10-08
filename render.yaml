@@ -7,7 +7,7 @@ services:
     startCommand: "python manage.py migrate && python create_superuser.py && python seed_data.py && gunicorn mysite.wsgi:application"
     envVars:
       - key: PYTHON_VERSION
-        value: 3.11.0
+        value: 3.12.8
       - key: WEB_CONCURRENCY
         value: 2
       - key: SECRET_KEY
